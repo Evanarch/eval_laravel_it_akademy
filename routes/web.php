@@ -26,6 +26,9 @@ Route::group(['prefix' => 'admin'], function(){
   Route::get('/', 'AdminVignetteController@index');
   Route::get('/vignettes', 'AdminVignetteController@displayAll');
   Route::get('/vignettes/create', 'AdminVignetteController@create');
+  Route::post('/vignettes/store', 'AdminVignetteController@store');
   Route::get('/vignettes/{id}/edit', 'AdminVignetteController@edit');
-  Route::get('/vignettes/{id}', 'AdminVignetteController@update');
+  Route::put('/vignettes/{id}/update', 'AdminVignetteController@update');
+  Route::get('/vignettes/{id}/delete', 'AdminVignetteController@destroy');
+  Route::get('/vignettes/{id}', 'AdminVignetteController@show');
 });

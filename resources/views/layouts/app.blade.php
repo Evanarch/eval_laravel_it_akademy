@@ -18,9 +18,19 @@
             </button>
             <nav>
                 <ul class="menu">
-                    <li><a href="">Inscription</a></li>
-                    <li><a href="">Connexion</a></li>
-                    
+                    <li><a href="/register">Inscription</a></li>
+                    <li><a href="/login">Connexion</a></li>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{{ route('logout') }}"
+                         onclick="event.preventDefault();
+                                       document.getElementById('logout-form').submit();">
+                          {{ __('Logout') }}
+                      </a>
+
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                          @csrf
+                      </form>
+                  </div>
                 </ul>
             </nav>
         </div>

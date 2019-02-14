@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Vignette;
 use App\User;
+use Validator;
 
 class AdminVignetteController extends Controller
 {
@@ -22,7 +23,7 @@ class AdminVignetteController extends Controller
     {
       $vignettes = Vignette::all();
 
-      return view('index',[
+      return view('admin/index',[
         'vignettes' => $vignettes
       ]);
     }
@@ -34,7 +35,7 @@ class AdminVignetteController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/create');
     }
 
     /**
@@ -45,7 +46,19 @@ class AdminVignetteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $validator = Validator::make($request->all(),[
+        'legende' => 'required|max:10',
+      ]);
+
+      if($validator->fails()){
+        return back()->withErrors($validator)->withInput();
+      }
+      $vignette = new Vignette;
+      $vignette->legende = $request->legende;
+      $vignette->description = $request->description;
+      $vignette->url = $request->url;
+      $vignette->save();
+      return "je suis dans le store";
     }
 
     /**
@@ -56,7 +69,11 @@ class AdminVignetteController extends Controller
      */
     public function show($id)
     {
-        //
+      $vignette = Vignette::find($id);
+
+      return view('admin/show',[
+        'vignette' => $vignette
+      ]);
     }
 
     /**
@@ -67,7 +84,11 @@ class AdminVignetteController extends Controller
      */
     public function edit($id)
     {
-        //
+      $vignette = Vignette::find($id);
+
+      return view('admin/edit',[
+        'vignette' => $vignette
+      ]);
     }
 
     /**
@@ -79,7 +100,19 @@ class AdminVignetteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $validator = Validator::make($request->all(),[
+      'legende' => 'required|max:10',
+      ]);
+
+      if($validator->fails()){
+        return back()->withErrors($validator)->withInput();
+      }
+      $vignette = Vignette::find($id);
+      $vignette->legende = $request->legende;
+      $vignette->description = $request->description;
+      $vignette->url = $request->url;
+      $vignette->save();
+      return "je suis dans l'edit";
     }
 
     /**
@@ -90,6 +123,8 @@ class AdminVignetteController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $vignette = Vignette::all();
+      $vignette->destroy($id);
+      return "destruction du " . $id;
     }
 }

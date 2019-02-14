@@ -3,21 +3,17 @@
 @section('content')
 <main class="container posts articles">
 
+  @foreach($vignettes as $vignette)
     <article>
+        <h2>{{ $vignette->legende }}</h2>
+        <p>{{ $vignette->description }}</p>
+        <p>{{ $vignette->url }}</p>
+
         <img src="" alt="">
         <p><a href="">Legende</a></p>
-        <p><a href="">Voir</a></p>
-        @if (Auth::check())
-          <p><a href="">Editer</a></p>
-          <p><a href="">Supprimer</a></p>
-        @endif
+        <p><a href="/show/{{ $vignette->id }}">Voir</a></p>
     </article>
-
-    @foreach($vignettes as $vignette)
-      <h2>{{ $vignette->legende }}</h2>
-      <p>{{ $vignette->description }}</p>
-      <p>{{ $vignette->url }}</p>
-    @endforeach
+  @endforeach
 
 </main>
 @endsection
