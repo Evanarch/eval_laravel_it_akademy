@@ -123,7 +123,7 @@ class AdminVignetteController extends Controller
      */
     public function destroy($id)
     {
-      $vignette = Vignette::all();
+      $vignette = Vignette::find($id);
       $vignette->destroy($id);
       return "destruction du " . $id;
     }
